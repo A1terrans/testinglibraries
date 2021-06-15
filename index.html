@@ -1,0 +1,397 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.css">
+<style type="text/css">
+   @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+body {
+  background: #76b852; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right, #76b852, #8DC26F);
+  background: -moz-linear-gradient(right, #76b852, #8DC26F);
+  background: -o-linear-gradient(right, #76b852, #8DC26F);
+  background: linear-gradient(to left, #76b852, #8DC26F);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;      
+}
+a { 
+  text-decoration: none; /* Отменяем подчеркивание у ссылки */
+}
+.page {
+  width: 100%;
+}
+.div0 {
+	display: inline-block;
+	vertical-align: bottom;
+}
+.div10{    
+    width: 20%;
+}
+   .c {
+    border: 1px solid #333; /* Рамка */
+    display: inline-block;
+    padding: 5px 5px; /* Поля */
+    text-decoration: none; /* Убираем подчёркивание */
+    color: #000; /* Цвет текста */
+  }
+   .c:hover {
+    box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Тень */
+    background: linear-gradient(to bottom, #fcfff4, #e9e9ce); /* Градиент */
+    color: #a00;
+   }
+.form select {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 80%;
+  border: 0;
+  margin: 0 0 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 96%;
+  margin: 0 auto 100px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.form input:not([class]) {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 80%;
+  border: 0;
+  margin: 0 0 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border: 1px solid #ccc;
+}
+.form textarea {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 80%;
+  border: 0;
+  margin: 0 0 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border: 1px solid #ccc;
+}
+.field {clear:both; text-align:right;}
+label {float:left;}
+.awesomplete {
+    width: 80%;
+	text-align:left;
+}
+.awesomplete > input {
+    display: block;
+	font-family: "Roboto", sans-serif;
+	outline: 0;
+	background: #f2f2f2;
+	width: 100%;
+	border: 0;
+	margin: 0 0 10px;
+	padding: 10px;
+	box-sizing: border-box;
+	font-size: 14px;
+	border: 1px solid #ccc;
+}
+
+</style>
+    <!-- googleanalytics.html -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.css">
+</head>
+<body>
+	<script src="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.min.js"></script>
+	<script src="https://raw.githubusercontent.com/tbluemel/rtf.js/master/dist/WMFJS.bundle.min.js"></script>
+	<script src="https://raw.githubusercontent.com/tbluemel/rtf.js/master/dist/EMFJS.bundle.min.js"></script>
+	<script src="https://raw.githubusercontent.com/tbluemel/rtf.js/master/dist/RTFJS.bundle.min.js"></script>
+	<script>
+	let url = 'https://spreadsheets.google.com/feeds/cells/118eFsw0uq2-SeTW9_oXmOmn0gyY7xuQMci3E6g46nLw/1/public/full?alt=json';
+	var str = '';
+	function fetchUniversities(callback) {
+		fetch(url)
+		.then(response => response.json())
+		.then(json => callback(null, json.feed.entry))
+		.catch(error => callback(error, null))
+	}
+    </script>
+	<div class='page'><div class='form'>
+    <!-- основное приложение -->
+    <div id="app">
+        <!-- форма -->
+        <form id="form">
+        <b>Форма регистрации "Студент" и "Аспирант"<br></p>
+        <b>Заполните все поля<br></p>
+			<div class="field">
+                <label for="name">RTF анкета (автозаполнение)</label>
+				<input type="file" onchange="readFile(this)">
+			</div>
+            <div class="field">
+                <label for="name">Категория</label>
+				<select name="fieldo" id="fieldo">
+					<option disabled>Категория</option>
+					<option>Студент</option>
+					<option>Аспирант</option>
+				</select>
+			</div>
+            <div class="field">
+				<label for="name">Направление</label>
+				<select name="prefieldb" id="prefieldb">
+					<option disabled>Направление</option>
+					<option value="1.1/История">1.1 История</option>
+					<option value="1.2/Экономика">1.2 Экономика</option>
+					<option value="1.3/Философия">1.3 Философия </option>
+					<option value="1.4/Филология">1.4 Филология </option>
+					<option value="1.5/Юридические и политические науки">1.5 Юридические и политические науки </option>
+					<option value="1.6/Социология">1.6 Социология </option>
+					<option value="1.7/Искусство и архитектура">1.7 Искусство и архитектура </option>
+					<option value="1.8/Психология">1.8 Психология </option>
+					<option value="2.1/Математика и информатика">2.1 Математика и информатика</option>
+					<option value="2.2/Механика">2.2 Механика </option>
+					<option value="2.3/Астрономия">2.3 Астрономия </option>
+					<option value="2.4/Физика">2.4 Физика </option>
+					<option value="2.5/Химия">2.5 Химия </option>
+					<option value="2.6/Биология">2.6 Биология </option>
+					<option value="2.7/Науки о Земле">2.7 Науки о Земле </option>
+					<option value="3.1/Энергетика">3.1 Энергетика </option>
+					<option value="3.2/Электротехника">3.2 Электротехника </option>
+					<option value="3.3/Горное дело">3.3 Горное дело </option>
+					<option value="3.4/Машиностроение">3.4 Машиностроение </option>
+					<option value="3.5/Приборостроение">3.5 Приборостроение </option>
+					<option value="3.6/Химическая технология">3.6 Химическая технология </option>
+					<option value="3.7/Легкая и пищевая промышленность">3.7 Легкая и пищевая промышленность </option>
+					<option value="3.8/Сельское и лесное хозяйство">3.8 Сельское и лесное хозяйство </option>
+					<option value="3.9/Электроника и радиотехника">3.9 Электроника и радиотехника </option>
+					<option value="3.10/Связь">3.10 Связь </option>
+					<option value="3.11/Автоматика, телемеханика. Вычислительная техника">3.11 Автоматика, телемеханика. Вычислительная техника </option>
+					<option value="3.12/Ядерная техника">3.12 Ядерная техника </option>
+					<option value="3.13/Строительство и архитектура">3.13 Строительство и архитектура </option>
+					<option value="3.14/Транспорт">3.14 Транспорт </option>
+					<option value="3.15/Стандартизация и метрология">3.15 Стандартизация и метрология </option>
+					<option value="4/Медицинские науки">4 Медицинские науки </option>
+					<option value="5.1/Графика">5.1 Графика </option>
+					<option value="5.2/Музыка">5.2 Музыка </option>
+					<option value="5.3/Архитектура">5.3 Архитектура </option>
+					<option value="5.4/Дизайн">5.4 Дизайн </option>
+					<option value="5.5/Живопись">5.5 Живопись </option>
+					<option value="5.6/Скульптура">5.6 Скульптура </option>
+					<option value="5.7/Режиссура театра и эстрады, актерское мастерство">5.7 Режиссура театра и эстрады, актерское мастерство </option>
+					<option value="5.8/Массовые и камерные представления и праздники">5.8 Массовые и камерные представления и праздники </option>
+					<option value="5.9/Сценография, театральный костюм, театральная кукла"> 5.9 Сценография, театральный костюм, театральная кукла </option>
+					<option value="5.10/Кино и видео">5.10 Кино и видео </option>
+					<option value="5.11/Декоративно-прикладное искусство">5.11 Декоративно-прикладное искусство </option>
+					<option value="5.12/Хореография">5.12 Хореография </option>
+				</select>
+            </div>
+            <div class="field">
+			    <label>ФИО</label>
+                <input type="text" name="fieldd" id="fieldd" required>
+			</div>
+			<div class="field">
+			    <label>Дата рождения</label>
+                <input type="date" name="fieldj" id="fieldj" min="1950-01-01" max="2010-01-01" required>
+			</div>
+            <div class="field">
+                <label for="comment">Организация/ВУЗ</label>
+				<input class="random" name="fielde" id="fielde" required />
+            </div>
+			<div class="field">
+			    <label>Факультет, кафедра</label>
+				<textarea name="fieldr" id="fieldr" cols="140" rows="3" required></textarea>
+			</div>
+			<div class="field">
+			    <label>Название проекта</label>
+				<textarea name="fieldg" id="fieldg" cols="140" rows="3" required></textarea>
+			</div>
+			<div class="field">
+			    <label>Научный руководитель</label>
+				<textarea name="fieldh" id="fieldh" cols="140" rows="10" required></textarea>
+			</div>
+			<div class="field">
+			    <label>E-MAIL</label>
+                <input type="text" name="fieldema" id="fieldema" required>
+			</div>
+			<div class="field">
+			    <label>Телефон</label>
+                <input type="text" name="fieldtel" id="fieldtel" required>
+			</div>
+                <input type="submit" value="Отправить" />
+		</div>
+        </form>
+        <div id="output"></div>
+    </div>
+	</form>
+    <script>
+		var auto = new Array();
+		var rtf = '';
+		var number = true;
+		var numberTwo = false;
+		var org = true;
+		var orgTwo = false;
+		function readFile(input) {
+		let file = input.files[0];
+		
+		let reader = new FileReader();
+		
+		reader.readAsText(file);
+		
+		reader.onload = function() {
+			//console.log(reader.result);
+			try {
+				number = true;
+				numberTwo = false;
+				org = true;
+				orgTwo = false;
+				examineRTF(reader.result);
+			} catch (err) {
+				alert('Ошибка! Невозможно прочитать файл, воспользуйтесь стандартным способом');
+			}
+			};
+		
+		reader.onerror = function() {
+			console.log(reader.error);
+			alert('Ошибка! Невозможно прочитать файл, воспользуйтесь стандартным способом');
+		};
+		
+		}
+		function examineRTF(data) {
+			rtf = data;
+			function stringToArrayBuffer(string) {
+			const buffer = new ArrayBuffer(string.length);
+			const bufferView = new Uint8Array(buffer);
+			for (let i = 0; i < string.length; i++) {
+				bufferView[i] = string.charCodeAt(i);
+			}
+			return buffer;
+			}
+		
+			RTFJS.loggingEnabled(false);
+			WMFJS.loggingEnabled(false);
+			EMFJS.loggingEnabled(false);
+		
+			const doc = new RTFJS.Document(stringToArrayBuffer(rtf));
+			
+			const meta = doc.metadata();
+			doc.render().then(function(htmlElements) {
+				htmlElements.forEach((element) => {
+				if (element['outerText'] != ''){
+						auto.push(element['outerText']);
+					}
+				});
+				auto.forEach((autodata) => {
+					if(autodata.startsWith('ТЕЛЕФОН:') && number){document.getElementById("fieldtel").value = autodata.split(':')[1].trim(), number = false};
+					if(autodata.startsWith('E-MAIL:')){document.getElementById("fieldema").value = autodata.split(':')[1].trim()};
+					if(autodata.startsWith('НАИМЕНОВАНИЕ ПPОЕКТА:')){document.getElementById("fieldg").value = autodata.split(':')[1].trim()};
+					if(autodata.startsWith('УЧАСТНИК КОНКУРСА:')){document.getElementById("fieldd").value = autodata.split(':')[1].trim()};
+					if(autodata.startsWith('ДАТА И ГОД РОЖДЕНИЯ:')){
+						if (autodata.split(':')[1].trim().charAt(2) == '.'){
+						var end = autodata.split(':')[1].trim();
+						end = end.split('.')[2] +'-'+ end.split('.')[1] +'-'+ end.split('.')[0];
+						document.getElementById("fieldj").value = end;
+						} else {
+						document.getElementById("fieldj").value = autodata.split(':')[1].trim().replace(/\b.\b/gi,'-');
+						}
+					};
+					if(autodata.startsWith('ОРГАНИЗАЦИЯ:') && org){document.getElementById("fielde").value = autodata.split(':')[1].trim(), org = false};
+					if(autodata.startsWith('МЕСТО УЧЕБЫ:')){document.getElementById("fieldr").value = autodata.split(':')[1].trim()};
+					if(autodata.startsWith('НАПРАВЛЕНИЕ:')){
+						if (autodata.split(':')[1].trim().split(' ')[0].slice(-1) == '.'){
+							var temp = autodata.split(':')[1].trim();
+							var arr = temp.split(/ (.*)/);
+							document.querySelector("#prefieldb").value = arr[0].slice(0, -1) + '/' + arr[1];
+							console.log('ТОЧКА');
+						} else {
+							var temp = autodata.split(':')[1].trim();
+							var arr = temp.split(/ (.*)/);
+							document.querySelector("#prefieldb").value = arr[0] + '/' + arr[1];
+							console.log('НЕТ ТОЧКИ');
+						}
+					};
+					if(autodata.startsWith('КАТЕГОРИЯ УЧАСТНИКА:')){document.querySelector("#fieldo").value = ucFirst(autodata.split(':')[1].trim())};
+					if(autodata.startsWith('НАУЧНЫЙ РУКОВОДИТЕЛЬ:')){document.getElementById("fieldh").value = document.getElementById("fieldh").value + autodata.trim() + '\n'};
+					if(autodata.startsWith('ОРГАНИЗАЦИЯ:') && orgTwo){
+						document.getElementById("fieldh").value = document.getElementById("fieldh").value + autodata.trim() + '\n';
+					} else if (autodata.startsWith('ОРГАНИЗАЦИЯ:') && !orgTwo) {
+						orgTwo =  true;
+					};
+					if(autodata.startsWith('МЕСТО РАБОТЫ:')){document.getElementById("fieldh").value = document.getElementById("fieldh").value + autodata.trim() + '\n'};
+					if(autodata.startsWith('ТЕЛЕФОН:') && numberTwo){
+						document.getElementById("fieldh").value = document.getElementById("fieldh").value + autodata.trim() + '\n';
+					} else if (autodata.startsWith('ТЕЛЕФОН:') && !numberTwo) {
+						numberTwo =  true;
+					};
+					if(autodata.startsWith('ДОЛЖНОСТЬ:')){document.getElementById("fieldh").value = document.getElementById("fieldh").value + autodata.trim() + '\n'};
+					if(autodata.startsWith('ЗВАНИЕ:')){document.getElementById("fieldh").value = document.getElementById("fieldh").value + autodata.trim() + '\n'};
+					if(autodata.startsWith('СТЕПЕНЬ:')){document.getElementById("fieldh").value = document.getElementById("fieldh").value + autodata.trim() + '\n'};
+				});
+			}).catch(error => console.error(error))
+		}		
+		function ucFirst(str) {
+			if (!str) return str;
+			return str[0].toUpperCase() + str.slice(1);
+		}
+	    function datalist(){
+	    	var input = document.getElementById("fielde");	
+	    	var lists = [];
+	    	fetchUniversities((error, univer) => {
+	    	if (error) 
+	    		console.log(error)
+	    	else
+	    		univer.forEach(element => lists.push(element.content.$t));
+	    	});
+	    	//console.log(lists);
+	    	new Awesomplete(input, { list: lists, maxItems: 15 });
+	    }
+	    datalist();		
+        //Обработка события onsubmit
+        var frm = document.getElementById('form');
+        var otp = document.getElementById('output');
+        if (frm.addEventListener)
+            frm.addEventListener('submit', submit, false);
+        //функция кнопки submit
+        function submit(event) {
+            event.preventDefault();
+            frm.style.display = 'none';
+            //меняем надпись
+            otp.innerHTML = 'Идет загрузка...';
+            //вызываем сервер для обработки данных формы. Функция на стороне сервера uploadFiles(form)
+            google.script.run.withSuccessHandler(onSuccess).withFailureHandler(onFailure).uploadFiles(this);
+        }
+        //функция по завершению работы с сервером
+        function onSuccess(status) {
+            frm.style.display = 'block'; //прячем форму
+            frm.reset();
+            otp.innerHTML = alert(status); //показываем, что ответил сервер
+            otp.innerHTML = status;
+        }
+        function onFailure(e) {
+            frm.style.display = 'block'; //прячем форму
+            otp.innerHTML = alert(JSON.stringify(e));
+            otp.innerHTML = JSON.stringify(e);
+        }
+    </script>
+    <!-- inject:sh -->
+    <!-- endinject -->
+</body>
+</html>
