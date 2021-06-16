@@ -1,6 +1,6 @@
-<!doctype html>
 <html>
 <head>
+<link rel="stylesheet" href="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.css">
 <style type="text/css">
    @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 body {
@@ -42,7 +42,7 @@ a {
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
-  width: 100%;
+  width: 80%;
   border: 0;
   margin: 0 0 10px;
   padding: 10px;
@@ -73,11 +73,11 @@ a {
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-.form input {
+.form input:not([class]) {
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
-  width: 75%;
+  width: 80%;
   border: 0;
   margin: 0 0 10px;
   padding: 10px;
@@ -85,192 +85,195 @@ a {
   font-size: 14px;
   border: 1px solid #ccc;
 }
-.form TABLE {
-    border-collapse: collapse;
-	width: 90%;
-	margin-left: auto;
-    margin-right: auto;
-   }
-   TD, TH {
-    padding: 3px;
-    border: 1px solid black;
-	font-size: 13;
-   }
-   TH {
-    background: #b0e0e6;
+.form textarea {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 80%;
+  border: 0;
+  margin: 0 0 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border: 1px solid #ccc;
 }
 .field {clear:both; text-align:right;}
 label {float:left;}
+.awesomplete {
+    width: 80%;
+	text-align:left;
+}
+.awesomplete > input {
+    display: block;
+	font-family: "Roboto", sans-serif;
+	outline: 0;
+	background: #f2f2f2;
+	width: 100%;
+	border: 0;
+	margin: 0 0 10px;
+	padding: 10px;
+	box-sizing: border-box;
+	font-size: 14px;
+	border: 1px solid #ccc;
+}
 
 </style>
     <!-- googleanalytics.html -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/LeaVerou/awesomplete@gh-pages/awesomplete.css">
 </head>
 <body>
-<script type="text/javascript">
-function ChangeText()
-{
-	var val = document.getElementById('fieldd').value;
-	var num = val.split('_');
-	if(num.length != 3)
-	{
-	alert('Регистрационный номер неверно введен.');
-	} else {
-	if(num[1].charAt(0) == 5)
-	{
-		document.getElementById('t2').hidden = false;
-		document.getElementById('t1').remove();
-	} else {
-		document.getElementById('t1').hidden = false;
-		document.getElementById('t2').remove();
+	<script src="https://cdn.jsdelivr.net/gh/LeaVerou/awesomplete@gh-pages/awesomplete.min.js"></script>
+	<script src="https://a1terrans.github.io/testinglibraries/WMFJS.bundle.min.js"></script>
+	<script src="https://a1terrans.github.io/testinglibraries/EMFJS.bundle.min.js"></script>
+	<script src="https://a1terrans.github.io/testinglibraries/RTFJS.bundle.min.js"></script>
+	<script>
+	let url = 'https://spreadsheets.google.com/feeds/cells/118eFsw0uq2-SeTW9_oXmOmn0gyY7xuQMci3E6g46nLw/1/public/full?alt=json';
+	var str = '';
+	function fetchUniversities(callback) {
+		fetch(url)
+		.then(response => response.json())
+		.then(json => callback(null, json.feed.entry))
+		.catch(error => callback(error, null))
 	}
-	document.getElementById('fon').hidden = true;
-	};
-}
-</script>
-<div class='page'><div class='form'>
+    </script>
+	<div class='page'><div class='form'>
     <!-- основное приложение -->
     <div id="app">
         <!-- форма -->
         <form id="form">
-        <b>Эксперт-анкета
-		заявки на грант для студентов и аспирантов Санкт-Петербурга</b><br></p>
-        <br></p>
-            <div class="field">
-			    <label>Регистрационный номер заявки</label>
-                <input id="fieldd" type="text" name="fieldd" pattern="{1,}_{1,}_{2,}" placeholder="1_23.45.67_А" required>
-			</div>
-			<input type="button" onclick="ChangeText()" value="Нажать после ввода регистрационного номера" id="fon" />
-			<div id="t1" hidden="true">
-			<center><b>Уважаемый эксперт!</b></center><br/>
-			Был объявлен открытый конкурс грантов для студентов, вузов, Санкт-Петербурга, аспирантов вузов, отраслевых и академических институтов<br/> 
-			Санкт-Петербурга. Цель настоящей экспертизы – определить экспертным путем достоин ли проект («кандидатский» или «дипломный») присуждения гранта.<br/>
-			Оцените научный проект по каждому показателю по пятибалльной системе: от 1 до 5 (1,2,3,4,5), балл- 5 высшая оценка, балл 1 – низшая.<br/>
-			В случае отсутствия информации, позволяющей вынести оценку по какому-либо показателю, Вы должны поставить 0 (ноль) баллов.<br></p>
-			<table>
-				<tr>
-					<th>№</th>
-					<th>Описание критерия</th>
-					<th>Оценка</th>
-				</tr>
-				<tr>
-					<th>1.</th>
-					<td><b>Ясность, логичность, последовательность изложения содержания проекта</b></p> (соблюдается ясность, логичность, последовательность изложения материала – 5 баллов; достаточно ясно изложен материал, но есть ошибки в последовательности изложения материала – 4 балла;  отсутствует внутренняя логика изложения – 3 балла; отсутствует ясность и логичность содержания проекта – 2 балла; тема не раскрыта – 1 балл)</td>
-					<td><select name="field1" required><option selected disabled value="">-</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
-				</tr>
-				<tr>
-					<th>2.</th>
-					<td><b>Степень наличия научной новизны проекта</b></p>
-(проект предполагает использование: новых материалов, технологий, методов, автором впервые сформулирована и научно обоснована проблема исследования - 5 баллов; автором предложены оригинальные подходы к решению проблемы, развитие существующих методов - 4 балла; сформулированная в проекте проблема исследования известна науке и автором не предложены оригинальные подходы к ее решению – 3 балла; использование традиционных методов – 2 балла; научная новизна отсутствует – 1 балл)</td>
-					<td><select name="field2" required><option selected disabled value="">-</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
-				</tr>
-				<tr>
-					<th>3.</th>
-					<td><b>Проект предполагает</b></p>
-(разработку нового метода – 5 баллов, развитие существующих методов исследования – 4 балла, использование традиционных методов – 3 балла, недостаточно полно проведен анализ – 2 балла; в проекте не представлены конкретные методы – 1 балл)</td>
-					<td><select name="field3" required><option selected disabled value="">-</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></td>
-				</tr>
-				<tr>
-					<th>4.</th>
-					<td><b>Важность результата исследования</b></p>
-(важен для развития данной отрасли знаний – 5 баллов; важен для решения большого класса задач – 4 балла; имеет самостоятельный интерес – 3 балла; проект находится в стадии разработки, нет окончательного результата – 2 балла; нет результата исследования – 1 балл)</td>
-					<td><select name="field4" required><option selected disabled value="">-</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
-				</tr>
-				<tr>
-					<th>5.</th>
-					<td><b>Практическое применение предполагаемых результатов реализации проекта</b></p>
-(широкая – 5 баллов; средняя – 4 балла; ограниченная – 3 балла; очень ограниченная – 2 балла; нет практического применения – 1 балл)</td>
-					<td><select name="field5" required><option selected disabled value="">-</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
-				</tr>
-				<tr>
-					<th>6.</th>
-					<td><b>Опыт научной, научно-технической, творческой деятельности участника конкурса по теме проекта</b></p>
-(наличие публикаций по теме исследования в высокорейтинговых международных журналах, входящих в одну из систем цитирования (библиографических баз) Web of Science, Scopus и др. – 5 баллов; наличие публикаций по теме исследования в ВАК – 4 балла; наличие публикаций по теме исследования в РИНЦ – 3 балла; наличие публикаций по теме исследования в изданиях не имеющие индекса – 2 балла; нет публикаций по теме исследования – 1 балл)</td>
-					<td><select name="field6" required><option selected disabled value="">-</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
-				</tr>
-				<tr>
-					<th>7.</th>
-					<td><b>Научный потенциал соискателя гранта</b></p> 
-(очень высок, имеются публикации в рецензируемых журналах по тематике проекта – 5 баллов; высок, имеются публикации в рецензируемых журналах, но необязательно по тематике проекта – 4 балла; достаточен, что подтверждается наличием статей в изданиях ограниченного распространения, а также дипломов и пр. – 3 балла; невысок, имеются только рукописные публикации – 2 балла; низок, публикации отсутствуют – 1 балл)</td>
-					<td><select name="field7" required><option selected disabled value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
-				</tr>
-			</table>
-			</p>
-			<div class="field">
-			    <label>Эксперт</label>
-                <input type="text" name="expert" placeholder="ФИО" required>
-			</div>
-			<div class="field">
-			    <label>Замечание эксперта</label>
-                <input type="text" name="comment">
-			</div>
-			</p>
-            <div class="submit">
-                <input type="submit" value="Отправить" />
-            </div>
-			</div>
-			<!--________-->
-			<div id="t2" hidden="true">
-			<center><b>Уважаемый эксперт!</b></center><br/>
-			Был объявлен открытый конкурс грантов для студентов, вузов, Санкт-Петербурга, аспирантов вузов, отраслевых и академических институтов<br/> 
-			Санкт-Петербурга. Цель настоящей экспертизы – определить экспертным путем достоин ли проект («кандидатский» или «дипломный») присуждения гранта.<br/>
-			Оцените научный проект по каждому показателю по пятибалльной системе: от 1 до 5 (1,2,3,4,5), балл- 5 высшая оценка, балл 1 – низшая.<br/>
-			В случае отсутствия информации, позволяющей вынести оценку по какому-либо показателю, Вы должны поставить 0 (ноль) баллов.<br></p>
-			<table>
-				<tr>
-					<th>№</th>
-					<th>Описание критерия</th>
-					<th>Оценка</th>
-				</tr>
-				<tr>
-					<th>1.</th>
-					<td><b>Степень наличия научной новизны - творческой самостоятельности</b></p>(проект предполагает использование: новых материалов, технологий, методов, автором впервые сформулирована и научно обоснована проблема исследования - 5 баллов; автором предложены оригинальные подходы к решению проблемы, развитие существующих методов - 4 балла; сформулированная в проекте проблема исследования известна науке и автором не предложены оригинальные подходы к решению проблемы – 3 балла; использование традиционных методов – 2 балла; научная новизна отсутствует – 1 балл)</td>
-					<td><select name="field1" required><option selected disabled value="">-</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
-				</tr>
-				<tr>
-					<th>2.</th>
-					<td><b>Уровень профессионального раскрытия и изложения темы</b></p>
-(тема раскрыта полностью – 5 баллов, тема раскрыта не полностью, но проект освещает наиболее важные аспекты темы – 4 балла, тема проекта раскрыта фрагментально – 3 балла, в проекте не раскрыта авторская позиция– 2 балла, проект не раскрывает тему – 1 балл)</td>
-					<td><select name="field2" required><option selected disabled value="">-</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
-				</tr>
-				<tr>
-					<th>3.</th>
-					<td><b>Возможность применения проекта в развитии культурного потенциала Санкт-Петербурга</b></p>
-(широкая – 5 баллов; средняя – 4 балла; ограниченная – 3 балла; очень ограниченная – 2 балла; нет практического применения – 1 балл)</td>
-					<td><select name="field3" required><option selected disabled value="">-</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></td>
-				</tr>
-				<tr>
-					<th>4.</th>
-					<td><b>Практическое применение предоставляемого проекта</b></p>
-(проект внедрен в организации – 5 баллов, имеется конкретный заказ - 4 балла, планируется к внедрению - 3 балла, маловероятно - 2 балл, в проекте не отражено практическое применение – 1 балл)</td>
-					<td><select name="field4" required><option selected disabled value="">-</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
-				</tr>
-				<tr>
-					<th>5.</th>
-					<td><b>Творческий потенциал участника конкурса</b></p>
-(участие в выставках международного, российского масштабов наличие дипломов – 5 баллов; участие в городских выставках, наличие дипломов – 4 балла, участие в вузовских выставках, наличие дипломов – 3 балла, участие в вузовских выставках – 2 балла, отсутствие информации – 1 балл)</td>
-					<td><select name="field5" required><option selected disabled value="">-</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
-				</tr>
-			</table>
-			</p>
-			<div class="field">
-			    <label>Эксперт</label>
-                <input type="text" name="expert" placeholder="ФИО" required>
-			</div>
-			<div class="field">
-			    <label>Замечание эксперта</label>
-                <input type="text" name="comment">
-			</div>
-			</p>
-            <div class="submit">
-                <input type="submit" value="Отправить" />
-            </div>
-			</div>
-		</div>
+        <b>Личная страница для тестирования и практического применения всякого<br></p>
+        <b>Пустота<br></p>
         </form>
         <div id="output"></div>
     </div>
 	</form>
     <script>
+		var auto = new Array();
+		var rtf = '';
+		var number = true;
+		var numberTwo = false;
+		var org = true;
+		var orgTwo = false;
+		function readFile(input) {
+		let file = input.files[0];
+		
+		let reader = new FileReader();
+		
+		reader.readAsText(file);
+		
+		reader.onload = function() {
+			//console.log(reader.result);
+			try {
+				number = true;
+				numberTwo = false;
+				org = true;
+				orgTwo = false;
+				examineRTF(reader.result);
+			} catch (err) {
+				alert('Ошибка! Невозможно прочитать файл, воспользуйтесь стандартным способом');
+			}
+			};
+		
+		reader.onerror = function() {
+			console.log(reader.error);
+			alert('Ошибка! Невозможно прочитать файл, воспользуйтесь стандартным способом');
+		};
+		
+		}
+		function examineRTF(data) {
+			rtf = data;
+			function stringToArrayBuffer(string) {
+			const buffer = new ArrayBuffer(string.length);
+			const bufferView = new Uint8Array(buffer);
+			for (let i = 0; i < string.length; i++) {
+				bufferView[i] = string.charCodeAt(i);
+			}
+			return buffer;
+			}
+		
+			RTFJS.loggingEnabled(false);
+			WMFJS.loggingEnabled(false);
+			EMFJS.loggingEnabled(false);
+		
+			const doc = new RTFJS.Document(stringToArrayBuffer(rtf));
+			
+			const meta = doc.metadata();
+			doc.render().then(function(htmlElements) {
+				htmlElements.forEach((element) => {
+				if (element['outerText'] != ''){
+						auto.push(element['outerText']);
+					}
+				});
+				auto.forEach((autodata) => {
+					if(autodata.startsWith('ТЕЛЕФОН:') && number){document.getElementById("fieldtel").value = autodata.split(':')[1].trim(), number = false};
+					if(autodata.startsWith('E-MAIL:')){document.getElementById("fieldema").value = autodata.split(':')[1].trim()};
+					if(autodata.startsWith('НАИМЕНОВАНИЕ ПPОЕКТА:')){document.getElementById("fieldg").value = autodata.split(':')[1].trim()};
+					if(autodata.startsWith('УЧАСТНИК КОНКУРСА:')){document.getElementById("fieldd").value = autodata.split(':')[1].trim()};
+					if(autodata.startsWith('ДАТА И ГОД РОЖДЕНИЯ:')){
+						if (autodata.split(':')[1].trim().charAt(2) == '.'){
+						var end = autodata.split(':')[1].trim();
+						end = end.split('.')[2] +'-'+ end.split('.')[1] +'-'+ end.split('.')[0];
+						document.getElementById("fieldj").value = end;
+						} else {
+						document.getElementById("fieldj").value = autodata.split(':')[1].trim().replace(/\b.\b/gi,'-');
+						}
+					};
+					if(autodata.startsWith('ОРГАНИЗАЦИЯ:') && org){document.getElementById("fielde").value = autodata.split(':')[1].trim(), org = false};
+					if(autodata.startsWith('МЕСТО УЧЕБЫ:')){document.getElementById("fieldr").value = autodata.split(':')[1].trim()};
+					if(autodata.startsWith('НАПРАВЛЕНИЕ:')){
+						if (autodata.split(':')[1].trim().split(' ')[0].slice(-1) == '.'){
+							var temp = autodata.split(':')[1].trim();
+							var arr = temp.split(/ (.*)/);
+							document.querySelector("#prefieldb").value = arr[0].slice(0, -1) + '/' + arr[1];
+							console.log('ТОЧКА');
+						} else {
+							var temp = autodata.split(':')[1].trim();
+							var arr = temp.split(/ (.*)/);
+							document.querySelector("#prefieldb").value = arr[0] + '/' + arr[1];
+							console.log('НЕТ ТОЧКИ');
+						}
+					};
+					if(autodata.startsWith('КАТЕГОРИЯ УЧАСТНИКА:')){document.querySelector("#fieldo").value = ucFirst(autodata.split(':')[1].trim())};
+					if(autodata.startsWith('НАУЧНЫЙ РУКОВОДИТЕЛЬ:')){document.getElementById("fieldh").value = autodata.trim() + '\n'};
+					if(autodata.startsWith('ОРГАНИЗАЦИЯ:') && orgTwo){
+						document.getElementById("fieldh").value = document.getElementById("fieldh").value + autodata.trim() + '\n';
+						org = true;
+						orgTwo = false;
+					} else if (autodata.startsWith('ОРГАНИЗАЦИЯ:') && !orgTwo) {
+						orgTwo =  true;
+					};
+					if(autodata.startsWith('МЕСТО РАБОТЫ:')){document.getElementById("fieldh").value = document.getElementById("fieldh").value + autodata.trim() + '\n'};
+					if(autodata.startsWith('ТЕЛЕФОН:') && numberTwo){
+						document.getElementById("fieldh").value = document.getElementById("fieldh").value + autodata.trim() + '\n';
+						number = true;
+						numberTwo = false;
+					} else if (autodata.startsWith('ТЕЛЕФОН:') && !numberTwo) {
+						numberTwo =  true;
+					};
+					if(autodata.startsWith('ДОЛЖНОСТЬ:')){document.getElementById("fieldh").value = document.getElementById("fieldh").value + autodata.trim() + '\n'};
+					if(autodata.startsWith('ЗВАНИЕ:')){document.getElementById("fieldh").value = document.getElementById("fieldh").value + autodata.trim() + '\n'};
+					if(autodata.startsWith('СТЕПЕНЬ:')){document.getElementById("fieldh").value = document.getElementById("fieldh").value + autodata.trim() + '\n'};
+				});
+			}).catch(error => console.error(error))
+			auto = [];
+		}		
+		function ucFirst(str) {
+			if (!str) return str;
+			return str[0].toUpperCase() + str.slice(1);
+		}
+	    function datalist(){
+	    	var input = document.getElementById("fielde");	
+	    	var lists = [];
+	    	fetchUniversities((error, univer) => {
+	    	if (error) 
+	    		console.log(error)
+	    	else
+	    		univer.forEach(element => lists.push(element.content.$t));
+	    	});
+	    	//console.log(lists);
+	    	new Awesomplete(input, { list: lists, maxItems: 15 });
+	    }
+	    datalist();		
         //Обработка события onsubmit
         var frm = document.getElementById('form');
         var otp = document.getElementById('output');
@@ -287,18 +290,21 @@ function ChangeText()
         }
         //функция по завершению работы с сервером
         function onSuccess(status) {
-            frm.style.display = 'block'; //прячем форму
-            frm.reset();
-            otp.innerHTML = status; //показываем, что ответил сервер
+            //frm.style.display = 'block'; //прячем форму
+            status = status.split('OO]');
+            otp.innerHTML = status[0] +
+            '<br></p><button onclick="window.open(\''+status[1]+'\', \'_top\');">Вернуться в форму</button>';
+            //window.open(status[1], '_top')
         }
         function onFailure(e) {
-            frm.style.display = 'block'; //прячем форму
-            otp.innerHTML = JSON.stringify(e);
+            //frm.style.display = 'block'; //прячем форму
+            e = e.split('OO]');
+            otp.innerHTML = JSON.stringify(e[0]) + 
+            '<br></p><button onclick="window.open(\''+e[1]+'\', \'_top\');">Вернуться в форму</button>';
+            //window.open(e[1], '_top')
         }
     </script>
     <!-- inject:sh -->
     <!-- endinject -->
 </body>
 </html>
-
-
